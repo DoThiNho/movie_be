@@ -3,10 +3,10 @@ import {
   Controller,
   Post,
   UploadedFile,
-  UploadedFiles,
+  // UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageService } from './image.service';
 import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { UploadFileDto } from './dto/create-image.dto';
@@ -32,9 +32,9 @@ export class ImageController {
   @ApiBody({ description: 'File upload', type: UploadFileDto })
   uploadImageMovie(
     @UploadedFile() file: Express.Multer.File,
-    @Body('movieId') userId: string,
+    @Body('movieId') movieId: string,
   ) {
-    return this.imageService.uploadFile(file, userId);
+    return this.imageService.uploadFile(file, movieId);
   }
   // @Post('uploads')
   // @UseInterceptors(FilesInterceptor('file[]', 5))

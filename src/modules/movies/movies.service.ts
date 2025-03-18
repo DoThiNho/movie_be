@@ -37,6 +37,7 @@ export class MoviesService {
 
     const newMovie = this.movieRepository.create(createMovieDto);
     await this.movieRepository.save(newMovie);
+    console.log({ genres });
 
     const movieGenres = genres.map((genre) =>
       this.movieGenreRepository.create({ movie: newMovie, genre }),
@@ -51,7 +52,9 @@ export class MoviesService {
     const isEmptyObject = (obj: object) => Object.values(obj).length === 0;
 
     if (isEmptyObject(paginationDto)) {
-      return this.movieRepository.find();
+      return this.movieRepository.find({
+        relations: ['movie_genres', 'movie_genres.genre'],
+      });
     }
 
     const order = SortBy
@@ -63,6 +66,7 @@ export class MoviesService {
       take: PageSize,
       order,
       where: Search ? { title: Like(`%${Search}%`) } : undefined,
+      relations: ['movie_genres', 'movie_genres.genre'],
     });
 
     return movies;

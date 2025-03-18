@@ -12,7 +12,7 @@ async function bootstrap() {
   app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle('Books example')
+    .setTitle('Review movies')
     .setDescription('The books API description')
     .setVersion('1.0')
     .addBearerAuth()

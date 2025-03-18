@@ -36,7 +36,7 @@ export class MoviesController {
     return this.moviesService.findOne(id);
   }
 
-  @Get(':id/genres')
+  @Get(':id/movies-by-genre')
   @Public()
   getMoviesByGenre(@Param('id') genreId: string) {
     return this.moviesService.getMoviesByGenre(genreId);
